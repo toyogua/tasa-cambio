@@ -12,11 +12,13 @@ async function scrapeBanguatExchangeRate() {
         // Extraer el valor del tipo de cambio
         const exchangeRate = $('.sube-numero').first().text().replace('$', '').trim();
 
-        // Extraer la fecha del enlace
-        const date = $('p a').first().attr('href').split('/')[1];
+        // Extraer la fecha del elemento i con la clase fa-pen-to-square
+        const dateText = $('i.d-block').text().trim();
+        // Limpiamos el texto para obtener solo la fecha y hora
+        const cleanDateText = dateText.replace(/\s+/g, ' ').trim();
 
         return {
-            date: date,
+            date: cleanDateText,
             exchangeRate: parseFloat(exchangeRate.replace(',', '')) || null
         };
     } catch (error) {
